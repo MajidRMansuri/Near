@@ -1,0 +1,210 @@
+{% extends 'user/base.html' %}
+{% load static %}
+{% block main_content %}
+    <!-- Body Content Wrapper -->
+    <div class="ms-content-wrapper">
+
+      <div class="ms-profile-overview">
+        <div class="ms-profile-cover"><style>
+          .profile_upload_form {
+            position: relative;
+          }
+          .upload_label {
+            background-color: crimson;
+            position: absolute;
+            bottom: -9px;
+            right: 0;
+            width: 30px;
+            height: max-content;
+            text-align: center;
+            padding: 4px;
+            color: aliceblue;
+            cursor: pointer;
+          }
+        </style>
+        <form action="{% url 'shop_image_upload' %}" method="post" class="profile_upload_form" onchange="this.submit()" enctype="multipart/form-data">
+          {% csrf_token %}
+          <input type="file" name="shop_image" id="profile_image" class="d-none" accept=".jpg, .png" />
+          <label for="profile_image" class="upload_label">
+            <i class="flaticon-pencil"></i>
+          </label>
+          <img class="ms-profile-img" src="{% if shop_data.ShopImage %}{{shop_data.ShopImage.url}} {% else %}' %} ../uploads/shop.png {% endif %}" alt="people">
+        </form>
+        
+          <div class="ms-profile-user-info">
+            <h4 class="ms-profile-username text-white">{{shop_data.ShopName}}</h4>
+          </div>
+        
+        </div>
+        <ul class="ms-profile-navigation nav nav-tabs tabs-bordered" role="tablist">
+          <li role="presentation"><a href="#tab1" aria-controls="tab1" class="active show" role="tab" data-toggle="tab"> Shop Profile </a></li>
+          
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane" id="tab1">
+
+          </div>
+          <div class="tab-pane" id="tab2">
+
+          </div>
+          <div class="tab-pane" id="tab3">
+
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+
+        <div class="col-xl-7 col-md-12">
+          <div class="ms-panel ms-panel-fh">
+            <div class="ms-panel-body">
+              <form method="post" action="{% url 'shop_update' %}" class="ms-panel-body needs-validation" novalidate>
+                {% csrf_token %}
+                <!-- <p>{{ shop_data.Shop_login.Email }}</p> -->
+                <h2 class="section-title">Profile for Shops</h2>
+                <p></p>
+                <div class="form-row">
+                  <div class="col-md-5">
+                    <div class="form-group">
+                      <label for="validationCustom01">Shop name</label>
+                      <div class="input-group">
+                        <input type="text" class="form-control" id="validationCustom01" placeholder="Shop name" name="shop_name" value="{{shop_data.ShopName}}" required>
+                        <div class="valid-feedback">Looks good!</div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="validationCustom05">Contact Number</label>
+                      <div class="input-group">
+                        <input type="text" class="form-control" id="validationCustom05" name="contact" placeholder="Contact" value="{{shop_data.Contact}}" required>
+                        <div class="invalid-feedback">Please provide a valid zip.</div>
+                      </div>
+                    </div>
+                    
+                    <div class="form-group">
+                      
+                      <label for="validationCustom01">Personal Delivery</label>
+                      <div class="input-group m-0">
+                        <ul class="ms-list d-flex">
+                          
+                          <li class="ms-list-item pl-0">
+                            <label class="ms-checkbox-wrap">
+                              <input type="radio" class="form-control" name="delivery" value="y" {% if shop_data.Delivery == 'y' %} checked {% endif %} > <i class="ms-checkbox-check"></i>
+                            </label> <span> Yes </span>
+                          </li>
+                          <li class="ms-list-item">
+                            <label class="ms-checkbox-wrap">
+                              <input type="radio" class="form-control" name="delivery" value="n" {% if shop_data.Delivery == 'n' %} checked {% endif %}> <i class="ms-checkbox-check"></i>
+                            </label> <span> No </span>
+                          </li>
+                        </ul>
+                        <div class="valid-feedback">Looks good!</div>
+                      </div>                
+                    </div>                    
+                  </div>
+  
+                  <div class="col-md-7">
+                    <div class="form-row">
+                      
+                      
+                        <div class="col-md-4">
+                          <label for="validationCustom03">City</label>
+                          <div class="input-group">
+                            <input type="text" class="form-control" id="validationCustom03" placeholder="City" name="city" value="{{shop_data.City}}" required>
+                            <div class="invalid-feedback">Please provide a valid city.</div>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <label for="validationCustom04">State</label>
+                          <div class="input-group">
+                            <input type="text" class="form-control" id="validationCustom04" placeholder="State" name="state" value="{{shop_data.State}}" required>
+                            <div class="invalid-feedback">Please provide a valid state.</div>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <label for="validationCustom05">Pincode</label>
+                          <div class="input-group">
+                            <input type="text" class="form-control" id="validationCustom05" name="pincode" placeholder="Pincode" value="{{shop_data.Pincode}}" required>
+                            <div class="invalid-feedback">Please provide a valid zip.</div>
+                          </div>
+                        </div>
+                        
+                      
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleTextarea">Address</label>
+                      <textarea class="form-control" id="exampleTextarea" name="address" rows="5" required>{{shop_data.Address}}</textarea>
+                      <div class="invalid-feedback">Please provide a valid address.</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <button class="btn btn-primary m-auto" type="submit">Submit form</button>
+                </div>
+  
+              </form>
+
+            
+
+            </div>
+
+          </div>
+        </div>
+        <div class="col-xl-5 col-md-12">
+          <div class="ms-panel ms-panel-fh">
+            <div class="ms-panel-body">
+              
+              <h2 class="section-title">Basic Information</h2>
+              <table class="table ms-profile-information">
+                <tbody>
+                  <tr>
+                    <th scope="row">Shop Name</th>
+                    <td>{{shop_data.ShopName}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Contact Number</th>
+                    <td>{{shop_data.Contact}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Delivery Status</th>
+                    <td>
+                      {% if shop_data.Delivery == 'y' %} Yes
+                      {% else %} No 
+                      {% endif %}
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">City</th>
+                    <td>{{shop_data.City}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Status</th>
+                    <td>{{shop_data.State}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Pincode</th>
+                    <td>{{shop_data.Pincode}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Address</th>
+                    <td>{{shop_data.Address}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+       
+
+        
+        
+
+        
+
+      </div>
+
+
+    </div>
+{% endblock %}
+{% block scripts %}
+{% endblock %}
